@@ -1,3 +1,3 @@
-module github.com/Aibekabdi/impl-jwt.git
+module github.com/Aibekabdi/impl-jwt
 
 go 1.18
