@@ -10,8 +10,8 @@ import (
 )
 
 type jwt struct {
-	header  header
-	payload payload
+	header  map[string]interface{}
+	payload map[string]interface{}
 }
 
 type header struct {
@@ -25,13 +25,12 @@ type payload struct {
 }
 
 func New() *jwt {
-	return &jwt{
-		header: header{
-			Alg: "HS256",
-			Typ: "JWT",
-		},
-		payload: payload{},
-	}
+	header := make(map[string]interface{})
+	header["alg"] = "HS256"
+	header["typ"] = "JWT"
+
+	payload := make(map[string]interface{})
+	return &jwt{header: header, payload: payload}
 }
 
 func EncodeBase64(data []byte) string {
@@ -83,10 +82,8 @@ func (j *jwt) Verify(token, secret string) error {
 	return nil
 }
 
-func (j *jwt) SetPayload(sub, name string, exp int) {
-	j.payload.Sub = sub
-	j.payload.Name = name
-	j.payload.Exp = exp
+func (j *jwt) SetPayload(key, data string) {
+	j.payload[key] = data
 }
 
 func Parse(token string) (*jwt, error) {
@@ -109,3 +106,4 @@ func Parse(token string) (*jwt, error) {
 	}
 	return jwt, nil
 }
+
