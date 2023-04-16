@@ -14,16 +14,6 @@ type jwt struct {
 	payload map[string]interface{}
 }
 
-type header struct {
-	Alg string `json:"alg"`
-	Typ string `json:"typ"`
-}
-type payload struct {
-	Sub  string `json:"sub"`
-	Name string `json:"name"`
-	Exp  int    `json:"exp"`
-}
-
 func New() *jwt {
 	header := make(map[string]interface{})
 	header["alg"] = "HS256"
