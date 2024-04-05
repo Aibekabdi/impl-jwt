@@ -1,4 +1,4 @@
-package impljwt
+package smpljwt
 
 import (
 	"crypto/hmac"
@@ -76,6 +76,11 @@ func (j *jwt) SetPayload(key, data string) {
 	j.payload[key] = data
 }
 
+func (j *jwt) GetPayload(key string) (interface{}, bool) {
+	data, ok := j.payload[key]
+	return data, ok
+}
+
 func Parse(token string) (*jwt, error) {
 	splitted := strings.Split(token, ".")
 	if len(splitted) != 3 {
@@ -96,4 +101,3 @@ func Parse(token string) (*jwt, error) {
 	}
 	return jwt, nil
 }
-
